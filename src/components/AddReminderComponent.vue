@@ -156,16 +156,14 @@ export default {
       if (newVal) {
         const { text, city, day, color, timestamp } = newVal;
         const hour = new Date(timestamp).getHours();
-        console.log('newVal:::', new Date(newVal.timestamp).getHours());
+        const formattedHour = hour < 10 ? `0${hour}` : `${hour}`;
         this.newReminder = {
           text: text,
           date: day,
-          hour: hour,
+          hour: formattedHour,
           color: color,
           city: city
         };
-        console.log('reminder:::', this.newReminder);
-        console.log('reminder:::', day);
       }
     }
   },
