@@ -40,6 +40,7 @@ export default new Vuex.Store({
     setDays(state) {
       let day = 1;
       let dayArr = [];
+      // const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
       while (day < 31) {
         const date = day < 10 ? `2023-11-0${day}` : `2023-11-${day}`;
         dayArr.push({ date: date, isCurrentMonth: true });

@@ -56,7 +56,7 @@ export default {
   },
   data() {
     return {
-      selectedDate: dayjs(),
+      selectedDate: {},
       today: dayjs().format('YYYY-MM-DD'),
       reminderModalFlag: false
     };

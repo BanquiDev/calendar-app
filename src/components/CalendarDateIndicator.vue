@@ -1,28 +1,25 @@
 <template>
-        <div class="calendar-date-indicator">{{ selectedMonth }}</div>
+  <div class="indicator">{{ selectedMonth }} 2023</div>
 </template>
 
-
-
-<script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
-    props: {
-     selectedDate: {
+<script>
+export default {
+  props: {
+    selectedDate: {
       type: Object,
       required: true
-     } 
-    },
-    computed: {
+    }
+  },
+  computed: {
     selectedMonth() {
-      return this.selectedDate.format("MMMM YYYY");
+      return this.selectedDate.label;
     }
   }
-})
+};
 </script>
 
 <style scoped>
-.calendar-date-indicator {
+.indicator {
   font-size: 24px;
   font-weight: 600;
   color: var(--grey-00);
