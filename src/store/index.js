@@ -10,7 +10,17 @@ export default new Vuex.Store({
     daysArray: [],
     selectedMonth: { number: null, label: '' },
     reminderToEdit: {},
-    editReminderFlag: false
+    editReminderFlag: false,
+    cityCoordenates: {
+      lat: null,
+      lon: null
+    },
+    cityWeatherDescription: {
+      description: '',
+      icon: '',
+      id: null,
+      main: ''
+    }
   },
   getters: {
     getDays(state) {
@@ -24,6 +34,9 @@ export default new Vuex.Store({
     },
     getEditReminderFlag(state) {
       return state.editReminderFlag;
+    },
+    getCityWeatherDescription(state) {
+      return state.cityWeatherDescription;
     }
   },
   mutations: {
@@ -51,6 +64,12 @@ export default new Vuex.Store({
     },
     setEditReminderFlag(state, flag) {
       state.editReminderFlag = flag;
+    },
+    setReminderCityCoordenates(state, coordsObj) {
+      state.cityCoordenates = { ...coordsObj };
+    },
+    setCityWeatherDescription(state, weatherObj) {
+      state.cityWeatherDescription = { ...weatherObj };
     },
     setMonthSelected(state, selectedMonth) {
       state.selectedMonth = selectedMonth;
@@ -105,7 +124,7 @@ export default new Vuex.Store({
     // getCurrentWeather({dispatch},payload){
 
     // }
-    async getCityCoordenates() {
+    async getCityCoordenates({ commit, dispatch }) {
       console.log('getCityCoordenates', axios);
       try {
         const response = await axios.get(
@@ -113,17 +132,20 @@ export default new Vuex.Store({
         );
         const { lat, lon } = response.data[0];
         console.log('response::', lat, lon);
+        commit('setReminderCityCoordenates', { lat, lon });
+        await dispatch('getCityWeather');
       } catch (error) {
         alert(error.message);
       }
     },
-    async getCityWeather() {
+    async getCityWeather({ state, commit }) {
+      const { lat, lon } = state.cityCoordenates;
       try {
         const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?lat=-34.60&lon=-58.43&appid=${WEATHER_API_KEY}`
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}`
         );
-        // const { lat, lon } = response.data[0];
-        console.log('response::', response);
+        const weatherDescription = response.data.weather[0];
+        commit('setCityWeatherDescription', weatherDescription);
       } catch (error) {
         alert(error.message);
       }

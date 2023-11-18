@@ -24,6 +24,7 @@
                     v-model="newReminder.date"
                     @focus="showPicker = true"
                     :rules="[rules.required]"
+                    :disabled="getReminderToEdit"
                   ></v-text-field>
                   <v-dialog v-model="showPicker" v-if="showPicker" width="500">
                     <v-card>
@@ -140,7 +141,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({ getReminderToEdit: 'getReminderToEdit' }),
+    ...mapGetters({
+      getReminderToEdit: 'getReminderToEdit',
+      cityWeatherDescription: 'getCityWeatherDescription'
+    }),
     reminderModalFlag() {
       return this.reminderFlagProp;
     },
@@ -180,7 +184,7 @@ export default {
       };
       this.$emit('update');
     },
-    saveReminder() {
+    async saveReminder() {
       if (!this.isValid) {
         this.$refs.reminderForm.validate();
         return;
@@ -189,23 +193,27 @@ export default {
         parseInt(this.newReminder.hour)
       );
 
+      await this.getCityCoordenates();
+      const weatherDescription = this.cityWeatherDescription;
+
       const reminderToAdd = {
         text: this.newReminder.text,
         timestamp: reminderDate,
         day: this.newReminder.date,
         color: this.newReminder.color,
-        city: this.newReminder.city
+        city: this.newReminder.city,
+        weather: weatherDescription
       };
 
       this.addReminder(reminderToAdd);
-      this.getCityCoordenates();
       this.$emit('update');
       this.newReminder = {
         text: '',
         date: '',
         hour: '',
         color: '',
-        city: ''
+        city: '',
+        weather: {}
       };
     },
     closePicker() {

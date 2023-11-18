@@ -1,15 +1,18 @@
 <template>
   <div class="reminder-div" :style="{ backgroundColor: reminder.color }">
     <div class="reminder">
-      <span>{{ reminder.text }}</span>
-      <v-btn x-small plain @click="$emit('click:delete', reminder)"
-        ><v-icon small>mdi-delete-outline</v-icon></v-btn
+      <span>{{ reminder.text.toUpperCase() }}</span>
+      <v-btn x-small plain @click="$emit('click:edit', reminder)"
+        ><v-icon small>mdi-pencil</v-icon></v-btn
       >
     </div>
     <div class="reminder-city">
       <span>City: {{ reminder.city }}</span>
-      <v-btn x-small plain @click="$emit('click:edit', reminder)"
-        ><v-icon small>mdi-pencil</v-icon></v-btn
+    </div>
+    <div class="reminder">
+      <span>Conditions: {{ reminder.weather?.description || 'N/A' }}</span>
+      <v-btn x-small plain @click="$emit('click:delete', reminder)"
+        ><v-icon small>mdi-delete-outline</v-icon></v-btn
       >
     </div>
   </div>
@@ -44,7 +47,6 @@ export default {
 }
 .reminder-city {
   display: flex;
-  /* height: 20px; */
 }
 .reminder-city > span {
   overflow-x: hidden;
