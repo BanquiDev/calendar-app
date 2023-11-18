@@ -6,7 +6,21 @@ export const daysLimit = (month) => {
   }
   return 31;
 };
+// export const createCurrentMonthDays = (selectedMonth) => {
+//   let day = 1;
+//   let dayArr = [];
+//   const daysLimit = daysLimit(selectedMonth);
 
+//   while (day <= daysLimit) {
+//     const date =
+//       day < 10
+//         ? `2023-${selectedMonth}-0${day}`
+//         : `2023-${selectedMonth}-${day}`;
+//     dayArr.push({ date: date, isCurrentMonth: true });
+//     day++;
+//   }
+//   return dayArr;
+// };
 // module.exports = { daysLimit };
 // export default {
 //   daysLimit

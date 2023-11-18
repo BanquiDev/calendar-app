@@ -41,11 +41,10 @@ export default new Vuex.Store({
       state.selectedMonth = selectedMonth;
     },
     setDays(state) {
+      const selectedMonth = state.selectedMonth.number;
+      // let dayArr = utils.createCurrentMonthDays(selectedMonth);
       let day = 1;
       let dayArr = [];
-
-      const selectedMonth = state.selectedMonth.number;
-      const firstDayOfMonth = new Date(`${selectedMonth}/01/2023`);
       const daysLimit = utils.daysLimit(selectedMonth);
 
       while (day <= daysLimit) {
@@ -57,12 +56,11 @@ export default new Vuex.Store({
         day++;
       }
 
+      const firstDayOfMonth = new Date(`${selectedMonth}/01/2023`);
       const firstDayWeekPosition = firstDayOfMonth.getDay();
 
       if (firstDayWeekPosition > 0) {
-        const previousMonthLimit = utils.daysLimit(
-          state.selectedMonth.number - 1
-        );
+        const previousMonthLimit = utils.daysLimit(selectedMonth - 1);
         for (let index = 0; index < firstDayWeekPosition; index++) {
           dayArr.unshift({
             date: `2023-${previousMonthLimit}-${previousMonthLimit - index}`,
@@ -89,6 +87,9 @@ export default new Vuex.Store({
       commit('setMonthSelected', monthSelected);
       commit('setDays');
     }
+    // getCurrentWeather({dsipatch},payload){
+
+    // }
   },
   modules: {}
   // strict: daysLimit
