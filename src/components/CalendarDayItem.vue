@@ -24,9 +24,13 @@
           <reminder-component
             :reminder="reminder"
             @click:delete="deleteReminder"
-            @click="editReminder"
+            @click:edit="editReminder"
           />
         </div>
+        <!-- <add-reminder-component
+          :reminder-flag-prop="reminderModalFlag"
+          :reminderToEdit="reminderToEdit"
+        /> -->
       </div>
     </li>
   </div>
@@ -36,10 +40,12 @@
 import ReminderComponent from '@/components/ReminderComponent.vue';
 import dayjs from 'dayjs';
 import { mapGetters, mapMutations } from 'vuex';
+// import AddReminderComponent from './AddReminderComponent.vue';
 export default {
   name: 'CalendarMonthDayItem',
   components: {
     ReminderComponent
+    // AddReminderComponent
   },
   props: {
     day: {
@@ -57,7 +63,12 @@ export default {
       default: false
     }
   },
-
+  data() {
+    return {
+      reminderModalFlag: false,
+      reminderToEdit: {}
+    };
+  },
   computed: {
     ...mapGetters({ dayReminders: 'getReminders' }),
     dayNumber() {
@@ -67,14 +78,16 @@ export default {
       const sortedReminders = this.dayReminders(this.day.date).sort(
         (a, b) => a.timestamp - b.timestamp
       );
-      // console.log(sortedReminders);
       return sortedReminders;
     }
   },
+
   methods: {
     ...mapMutations({
       removeReminder: 'removeReminder',
-      removeAllReminders: 'removeAllReminders'
+      removeAllReminders: 'removeAllReminders',
+      setReminderToEdit: 'setReminderToEdit',
+      setEditReminderFlag: 'setEditReminderFlag'
     }),
     deleteReminder(reminder) {
       this.removeReminder(reminder);
@@ -82,8 +95,9 @@ export default {
     deleteAllReminders() {
       this.removeAllReminders(this.day.date);
     },
-    editReminder() {
-      console.log('edit');
+    editReminder(reminder) {
+      this.setEditReminderFlag(true);
+      this.setReminderToEdit(reminder);
     }
   }
 };

@@ -79,7 +79,7 @@
   </div>
 </template>
 <script>
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 const HOURS = [
   '01',
   '02',
@@ -140,6 +140,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({ getReminderToEdit: 'getReminderToEdit' }),
     reminderModalFlag() {
       return this.reminderFlagProp;
     },
@@ -150,7 +151,24 @@ export default {
       return COLORS;
     }
   },
-
+  watch: {
+    getReminderToEdit(newVal) {
+      if (newVal) {
+        const { text, city, day, color, timestamp } = newVal;
+        const hour = new Date(timestamp).getHours();
+        console.log('newVal:::', new Date(newVal.timestamp).getHours());
+        this.newReminder = {
+          text: text,
+          date: day,
+          hour: hour,
+          color: color,
+          city: city
+        };
+        console.log('reminder:::', this.newReminder);
+        console.log('reminder:::', day);
+      }
+    }
+  },
   methods: {
     ...mapMutations({ addReminder: 'addReminder' }),
     closeReminderModal() {

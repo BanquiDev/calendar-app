@@ -8,6 +8,9 @@
     </div>
     <div class="reminder-city">
       <span>City: {{ reminder.city }}</span>
+      <v-btn x-small plain @click="$emit('click:edit', reminder)"
+        ><v-icon small>mdi-pencil</v-icon></v-btn
+      >
     </div>
   </div>
 </template>

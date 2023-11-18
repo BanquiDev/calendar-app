@@ -5,7 +5,7 @@
         :selected-date="selectedDate"
         class="calendar-month-header-selected-month"
       />
-      <!-- Pagination -->
+
       <CalendarDateSelector
         :current-date="today"
         :selected-date="selectedDate"
@@ -17,7 +17,7 @@
         >Add Reminder <v-icon end>mdi-plus</v-icon></v-btn
       >
     </div>
-    <!-- Calendar grid header -->
+
     <CalendarWeek />
 
     <!-- Calendar grid -->
@@ -61,11 +61,24 @@ export default {
       reminderModalFlag: false
     };
   },
-  mounted() {
-    // this.setDays();
+  computed: {
+    ...mapGetters({
+      getEditReminderFlag: 'getEditReminderFlag',
+      days: 'getDays'
+    })
+  },
+  watch: {
+    getEditReminderFlag(newVal) {
+      if (newVal) {
+        this.addReminder();
+      }
+    }
   },
   methods: {
-    ...mapMutations({ setDays: 'setDays' }),
+    ...mapMutations({
+      setDays: 'setDays',
+      setEditReminderFlag: 'setEditReminderFlag'
+    }),
     selectDate(newSelectedDate) {
       this.selectedDate = newSelectedDate;
     },
@@ -74,10 +87,8 @@ export default {
     },
     updateFlag() {
       this.reminderModalFlag = false;
+      this.setEditReminderFlag(false);
     }
-  },
-  computed: {
-    ...mapGetters({ days: 'getDays' })
   }
 };
 </script>

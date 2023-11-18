@@ -7,7 +7,9 @@ export default new Vuex.Store({
   state: {
     reminders: {},
     daysArray: [],
-    selectedMonth: { number: null, label: '' }
+    selectedMonth: { number: null, label: '' },
+    reminderToEdit: {},
+    editReminderFlag: false
   },
   getters: {
     getDays(state) {
@@ -15,6 +17,12 @@ export default new Vuex.Store({
     },
     getReminders: (state) => (day) => {
       return state.reminders[day] || [];
+    },
+    getReminderToEdit(state) {
+      return state.reminderToEdit;
+    },
+    getEditReminderFlag(state) {
+      return state.editReminderFlag;
     }
   },
   mutations: {
@@ -37,12 +45,18 @@ export default new Vuex.Store({
     removeAllReminders(state, day) {
       state.reminders[day] = [];
     },
+    setReminderToEdit(state, reminder) {
+      state.reminderToEdit = { ...reminder };
+    },
+    setEditReminderFlag(state, flag) {
+      state.editReminderFlag = flag;
+    },
     setMonthSelected(state, selectedMonth) {
       state.selectedMonth = selectedMonth;
     },
     setDays(state) {
       const selectedMonth = state.selectedMonth.number;
-      // let dayArr = utils.createCurrentMonthDays(selectedMonth);
+
       let day = 1;
       let dayArr = [];
       const daysLimit = utils.daysLimit(selectedMonth);
@@ -86,10 +100,13 @@ export default new Vuex.Store({
     setMonthSelectedAndUpdateDays({ commit }, monthSelected) {
       commit('setMonthSelected', monthSelected);
       commit('setDays');
-    }
-    // getCurrentWeather({dsipatch},payload){
+    },
+    // getCurrentWeather({dispatch},payload){
 
     // }
+    getCityCoordenates() {
+      console.log(this.$axios);
+    }
   },
   modules: {}
   // strict: daysLimit
