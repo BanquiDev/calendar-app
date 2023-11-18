@@ -1,4 +1,5 @@
 import * as utils from '@/utils';
+import axios from 'axios';
 import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
@@ -104,10 +105,31 @@ export default new Vuex.Store({
     // getCurrentWeather({dispatch},payload){
 
     // }
-    getCityCoordenates() {
-      console.log(this.$axios);
+    async getCityCoordenates() {
+      console.log('getCityCoordenates', axios);
+      try {
+        const response = await axios.get(
+          `http://api.openweathermap.org/geo/1.0/direct?q=buenos aires&appid=${WEATHER_API_KEY}`
+        );
+        const { lat, lon } = response.data[0];
+        console.log('response::', lat, lon);
+      } catch (error) {
+        alert(error.message);
+      }
+    },
+    async getCityWeather() {
+      try {
+        const response = await axios.get(
+          `https://api.openweathermap.org/data/2.5/weather?lat=-34.60&lon=-58.43&appid=${WEATHER_API_KEY}`
+        );
+        // const { lat, lon } = response.data[0];
+        console.log('response::', response);
+      } catch (error) {
+        alert(error.message);
+      }
     }
   },
   modules: {}
   // strict: daysLimit
 });
+const WEATHER_API_KEY = '3a83b80f42a8d8f94d9b2f4aa8f5a1aa';

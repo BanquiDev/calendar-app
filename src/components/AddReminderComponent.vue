@@ -79,7 +79,7 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 const HOURS = [
   '01',
   '02',
@@ -169,6 +169,7 @@ export default {
   },
   methods: {
     ...mapMutations({ addReminder: 'addReminder' }),
+    ...mapActions({ getCityCoordenates: 'getCityCoordenates' }),
     closeReminderModal() {
       this.newReminder = {
         text: '',
@@ -181,7 +182,6 @@ export default {
     },
     saveReminder() {
       if (!this.isValid) {
-        console.log('no es valido');
         this.$refs.reminderForm.validate();
         return;
       }
@@ -198,6 +198,7 @@ export default {
       };
 
       this.addReminder(reminderToAdd);
+      this.getCityCoordenates();
       this.$emit('update');
       this.newReminder = {
         text: '',
