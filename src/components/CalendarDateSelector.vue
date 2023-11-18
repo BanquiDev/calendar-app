@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 const MONTHS = [
   { number: 1, label: 'January' },
   { number: 2, label: 'February' },
@@ -41,10 +42,12 @@ export default {
     this.setMonth();
   },
   methods: {
+    ...mapActions({
+      setMonthSelectedAndUpdateDays: 'setMonthSelectedAndUpdateDays'
+    }),
     selectPrevious() {
       this.setMonth(-1);
     },
-
     selectCurrent() {
       this.currentMonth = new Date().getMonth() + 1;
       this.setMonth();
@@ -58,6 +61,8 @@ export default {
         (elem) => elem.number === this.currentMonth
       );
       this.$emit('dateSelected', this.selectedDate);
+      // this.setMonthSelected(this.selectedDate);
+      this.setMonthSelectedAndUpdateDays(this.selectedDate);
     },
     selectNext() {
       this.setMonth(1);

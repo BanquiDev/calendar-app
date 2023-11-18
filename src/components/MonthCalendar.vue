@@ -61,8 +61,8 @@ export default {
       reminderModalFlag: false
     };
   },
-  created() {
-    this.setDays();
+  mounted() {
+    // this.setDays();
   },
   methods: {
     ...mapMutations({ setDays: 'setDays' }),
