@@ -84,10 +84,10 @@ export default {
 
   methods: {
     ...mapMutations({
-      removeReminder: 'removeReminder',
-      removeAllReminders: 'removeAllReminders',
-      setReminderToEdit: 'setReminderToEdit',
-      setEditReminderFlag: 'setEditReminderFlag'
+      removeReminder: 'REMOVE_REMINDER',
+      removeAllReminders: 'REMOVE_ALL_REMINDER',
+      setReminderToEdit: 'SET_REMINDER_TO_EDIT',
+      setEditReminderFlag: 'SET_EDIT_REMINDER_FLAG'
     }),
     deleteReminder(reminder) {
       this.removeReminder(reminder);

@@ -5,7 +5,7 @@ import {
 } from '@/utils';
 
 export default {
-  addReminder(state, reminder) {
+  ADD_REMINDER(state, reminder) {
     const arr = state.reminders[reminder.day]
       ? state.reminders[reminder.day]
       : [];
@@ -14,32 +14,32 @@ export default {
       ...{ [reminder.day]: [...arr, reminder] }
     };
   },
-  removeReminder(state, reminder) {
+  REMOVE_REMINDER(state, reminder) {
     state.reminders[reminder.day] = [
       ...state.reminders[reminder.day].filter(
         (elem) => elem.timestamp !== reminder.timestamp
       )
     ];
   },
-  removeAllReminders(state, day) {
+  REMOVE_ALL_REMINDER(state, day) {
     state.reminders[day] = [];
   },
-  setReminderToEdit(state, reminder) {
+  SET_REMINDER_TO_EDIT(state, reminder) {
     state.reminderToEdit = { ...reminder };
   },
-  setEditReminderFlag(state, flag) {
+  SET_EDIT_REMINDER_FLAG(state, flag) {
     state.editReminderFlag = flag;
   },
-  setReminderCityCoordenates(state, coordsObj) {
+  SET_REMINDER_CITY_COORDENATES(state, coordsObj) {
     state.cityCoordenates = { ...coordsObj };
   },
-  setCityWeatherDescription(state, weatherObj) {
+  SET_CITY_WEATHER_DESCRIPTION(state, weatherObj) {
     state.cityWeatherDescription = { ...weatherObj };
   },
-  setMonthSelected(state, selectedMonth) {
+  SET_MONTH_SELECTED(state, selectedMonth) {
     state.selectedMonth = selectedMonth;
   },
-  setDays(state) {
+  SET_DAYS(state) {
     const selectedMonth = state.selectedMonth.number;
 
     let daysArr = createCurrentMonthDays(selectedMonth);

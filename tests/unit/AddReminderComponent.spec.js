@@ -35,7 +35,7 @@ describe('AddReminderComponent.vue', () => {
       getCityCoordenates: jest.fn()
     };
     actions = {
-      addReminder: jest.fn()
+      ADD_REMINDER: jest.fn()
     };
     store = new Vuex.Store({
       getters,
@@ -50,7 +50,6 @@ describe('AddReminderComponent.vue', () => {
   });
   it('renders component', () => {
     expect(wrapper.vm).toBeTruthy();
-    console.log(wrapper.vm);
   });
 
   it('Creates new Reminder', () => {

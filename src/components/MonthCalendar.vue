@@ -76,8 +76,8 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setDays: 'setDays',
-      setEditReminderFlag: 'setEditReminderFlag'
+      setDays: 'SET_DAYS',
+      setEditReminderFlag: 'SET_EDIT_REMINDER_FLAG'
     }),
     selectDate(newSelectedDate) {
       this.selectedDate = newSelectedDate;

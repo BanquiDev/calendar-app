@@ -61,7 +61,7 @@ export default {
         (elem) => elem.number === this.currentMonth
       );
       this.$emit('dateSelected', this.selectedDate);
-      // this.setMonthSelected(this.selectedDate);
+
       this.setMonthSelectedAndUpdateDays(this.selectedDate);
     },
     selectNext() {

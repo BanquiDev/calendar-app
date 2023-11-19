@@ -174,7 +174,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations({ addReminder: 'addReminder' }),
+    ...mapMutations({ addReminder: 'ADD_REMINDER' }),
     ...mapActions({ getCityCoordenates: 'getCityCoordenates' }),
     closeReminderModal() {
       this.newReminder = {
