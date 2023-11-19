@@ -1,10 +1,7 @@
 <template>
   <div class="calendar">
     <div class="calendar-month-header">
-      <CalendarDateIndicator
-        :selected-date="selectedDate"
-        class="calendar-month-header-selected-month"
-      />
+      <AddReminderButton @click="addReminder" />
 
       <CalendarDateSelector
         :current-date="today"
@@ -12,11 +9,7 @@
         @dateSelected="selectDate"
       />
     </div>
-    <div>
-      <v-btn class="ma-2" @click="addReminder" plain outlined
-        >Add Reminder <v-icon end>mdi-plus</v-icon></v-btn
-      >
-    </div>
+    <div class="indicator">{{ selectedDate.label }} 2023</div>
 
     <CalendarWeek />
 
@@ -36,7 +29,7 @@
   </div>
 </template>
 <script>
-import CalendarDateIndicator from '@/components/CalendarDateIndicator.vue';
+import AddReminderButton from '@/components/AddReminderButton.vue';
 import CalendarDateSelector from '@/components/CalendarDateSelector.vue';
 import CalendarDayItem from '@/components/CalendarDayItem.vue';
 import CalendarWeek from '@/components/CalendarWeek.vue';
@@ -47,7 +40,7 @@ import AddReminderComponent from './AddReminderComponent.vue';
 export default {
   name: 'MonthlyCalendar',
   components: {
-    CalendarDateIndicator,
+    AddReminderButton,
     CalendarDateSelector,
     CalendarWeek,
     CalendarDayItem,
@@ -124,5 +117,10 @@ export default {
   grid-column-gap: var(--grid-gap);
   grid-row-gap: var(--grid-gap);
   border-top: solid 1px var(--grey-200);
+}
+.indicator {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--grey-00);
 }
 </style>

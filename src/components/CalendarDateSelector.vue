@@ -1,8 +1,8 @@
 <template>
-  <div class="calendar-date-selector">
-    <span @click="selectPrevious">﹤</span>
-    <span @click="selectCurrent">Today</span>
-    <span @click="selectNext">﹥</span>
+  <div class="month-selector">
+    <span @click="selectPrevious"><v-icon large>mdi-chevron-left</v-icon></span>
+    <span @click="selectCurrent">Current</span>
+    <span @click="selectNext"><v-icon large>mdi-chevron-right</v-icon></span>
   </div>
 </template>
 
@@ -40,7 +40,10 @@ export default {
       this.setMonth();
     },
     setMonth(number = 0) {
-      if (this.currentMonth <= 1 || this.currentMonth >= 12) {
+      const truncateMonthPagination =
+        (this.currentMonth <= 1 && number === -1) ||
+        (this.currentMonth >= 12 && number === 1);
+      if (truncateMonthPagination) {
         return;
       }
       this.currentMonth = this.currentMonth + number;
@@ -58,14 +61,16 @@ export default {
 };
 </script>
 <style scoped>
-.calendar-date-selector {
+.month-selector {
   display: flex;
   justify-content: space-between;
-  width: 80px;
+  font-weight: 600;
+  font-size: medium;
   color: var(--grey-800);
+  align-items: center;
 }
 
-.calendar-date-selector > * {
+.month-selector > * {
   cursor: pointer;
   user-select: none;
 }

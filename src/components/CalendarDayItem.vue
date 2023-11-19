@@ -64,6 +64,7 @@ export default {
       reminderToEdit: {}
     };
   },
+
   computed: {
     ...mapGetters({ dayReminders: 'getReminders' }),
     dayNumber() {

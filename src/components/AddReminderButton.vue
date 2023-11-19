@@ -1,15 +1,14 @@
 <template>
-  <div class="indicator">{{ selectedMonth }} 2023</div>
+  <!-- <div class="indicator">{{ selectedMonth }} 2023</div> -->
+  <div>
+    <v-btn class="ma-2" @click="$emit('click')" plain outlined
+      >Add Reminder <v-icon end>mdi-plus</v-icon></v-btn
+    >
+  </div>
 </template>
 
 <script>
 export default {
-  props: {
-    selectedDate: {
-      type: Object,
-      required: true
-    }
-  },
   computed: {
     selectedMonth() {
       return this.selectedDate.label;

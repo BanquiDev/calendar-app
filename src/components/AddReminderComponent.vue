@@ -65,11 +65,20 @@
                 </v-col>
               </v-row>
               <v-row>
-                <v-col cols="6" sm="6" md="4">
-                  <v-btn @click="saveReminder" ref="save-button">Save</v-btn>
+                <v-col cols="6">
+                  <v-btn
+                    @click="saveReminder"
+                    ref="save-button"
+                    color="green"
+                    class="buttons"
+                    >Save
+                    <v-icon class="ml-2" small>mdi-check-outline</v-icon></v-btn
+                  >
                 </v-col>
                 <v-col cols="6" sm="6" md="4">
-                  <v-btn @click="closeReminderModal">Close</v-btn>
+                  <v-btn @click="closeReminderModal" color="red" class="buttons"
+                    >Close <v-icon class="ml-2">mdi-close</v-icon></v-btn
+                  >
                 </v-col>
               </v-row>
             </v-card>
@@ -194,5 +203,9 @@ export default {
 <style scoped>
 .reminder-modal {
   padding: 5%;
+}
+.buttons {
+  color: white;
+  font-weight: 600;
 }
 </style>

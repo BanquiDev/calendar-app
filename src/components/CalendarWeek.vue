@@ -23,9 +23,14 @@ export default Vue.extend({
 .day-of-week {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  padding-bottom: 0px !important;
+  border-radius: 2px;
 }
 .day-of-week > * {
-  text-align: right;
+  text-align: center;
   padding-right: 5px;
+  background-color: #87b5eb;
+  color: white;
+  font-weight: 500;
 }
 </style>
