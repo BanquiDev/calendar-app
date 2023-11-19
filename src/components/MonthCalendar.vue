@@ -20,7 +20,6 @@
 
     <CalendarWeek />
 
-    <!-- Calendar grid -->
     <ol class="days-grid">
       <CalendarDayItem
         v-for="day in days"

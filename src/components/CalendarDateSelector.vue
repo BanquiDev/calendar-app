@@ -7,21 +7,8 @@
 </template>
 
 <script>
+import { MONTHS } from '@/utils/constants';
 import { mapActions } from 'vuex';
-const MONTHS = [
-  { number: 1, label: 'January' },
-  { number: 2, label: 'February' },
-  { number: 3, label: 'March' },
-  { number: 4, label: 'April' },
-  { number: 5, label: 'May' },
-  { number: 6, label: 'June' },
-  { number: 7, label: 'July' },
-  { number: 8, label: 'August' },
-  { number: 9, label: 'September' },
-  { number: 10, label: 'October' },
-  { number: 11, label: 'November' },
-  { number: 12, label: 'December' }
-];
 export default {
   name: 'CalendarDateSelector',
 

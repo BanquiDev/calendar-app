@@ -7,8 +7,8 @@
 </template>
 
 <script>
+import { WEEKDAYS } from '@/utils/constants';
 import Vue from 'vue';
-const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 export default Vue.extend({
   name: 'CalendarWeekdays',
 

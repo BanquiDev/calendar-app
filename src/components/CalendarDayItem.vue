@@ -27,10 +27,6 @@
             @click:edit="editReminder"
           />
         </div>
-        <!-- <add-reminder-component
-          :reminder-flag-prop="reminderModalFlag"
-          :reminderToEdit="reminderToEdit"
-        /> -->
       </div>
     </li>
   </div>
@@ -40,12 +36,11 @@
 import ReminderComponent from '@/components/ReminderComponent.vue';
 import dayjs from 'dayjs';
 import { mapGetters, mapMutations } from 'vuex';
-// import AddReminderComponent from './AddReminderComponent.vue';
+
 export default {
   name: 'CalendarMonthDayItem',
   components: {
     ReminderComponent
-    // AddReminderComponent
   },
   props: {
     day: {
@@ -112,7 +107,6 @@ export default {
   padding: 5px;
   border: 1px var(--grey-800) solid;
   overflow-y: hidden;
-  /* overflow-y: scroll; */
 }
 
 .calendar-day > span {
