@@ -157,9 +157,6 @@ export default {
       }
     }
   },
-  mounted() {
-    this.$refs.reminderForm.reset();
-  },
   methods: {
     ...mapMutations({
       addReminder: 'ADD_REMINDER',
