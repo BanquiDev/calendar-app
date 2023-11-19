@@ -3,6 +3,7 @@
 ## Instructions
 - Open a console at `{path}/vue-calendar-app`
 - Run `npm install` to install node_modules folder
+- Create new .env file at root directory and add `VUE_APP_WEATHER_API_KEY={givenValue}`
 - Run `npm run serve` to run the webapp.
 - Open tab at `http://localhost:8080`
 - For testing purposes run `npm run test:unit` in a new console at `{path}/vue-calendar-app`.
