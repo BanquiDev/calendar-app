@@ -1,18 +1,18 @@
 import AddReminderComponent from '@/components/AddReminderComponent.vue';
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-
+// import vuetify from 'vuetify';
 import Vuex from 'vuex';
+
 const localVue = createLocalVue();
 localVue.use(Vuex);
+// localVue.use(vuetify);
 
 const reminderTest = {
   city: 'Buenos Aires',
-  day: '2023-11-20',
-  timestamp: 1700352458550,
+  date: '2023-11-20',
+
   text: 'Reminder Test',
-  weather: {
-    description: 'Clear'
-  }
+  hour: '01'
 };
 const weatherDescription = {
   main: 'Clear',
@@ -32,10 +32,10 @@ describe('AddReminderComponent.vue', () => {
       cityWeatherDescription: () => weatherDescription
     };
     mutations = {
-      getCityCoordenates: jest.fn()
+      ADD_REMINDER: jest.fn()
     };
     actions = {
-      ADD_REMINDER: jest.fn()
+      getCityCoordenates: jest.fn()
     };
     store = new Vuex.Store({
       getters,
@@ -52,8 +52,20 @@ describe('AddReminderComponent.vue', () => {
     expect(wrapper.vm).toBeTruthy();
   });
 
-  it('Creates new Reminder', () => {
-    // const buttonWrapper = wrapper.find({ ref: 'save-button' });
-    // buttonWrapper.trigger('click');
+  it('Creates new Reminder', async () => {
+    const saveButton = wrapper.findComponent({ ref: 'save-button' });
+    expect(saveButton.exists()).toBeTruthy();
+
+    const reminderTextInput = wrapper.findComponent(
+      '[test-id="reminder-text"]'
+    );
+
+    await wrapper.setData({ newReminder: reminderTest });
+    // TODO: Properly include Vuetify plugin to test vuetify components.
+    expect(reminderTextInput.exists()).toBeTruthy();
+    expect(wrapper.vm.newReminder.text).toBe(reminderTest.text);
+    expect(wrapper.vm.newReminder.city).toBe(reminderTest.city);
+    expect(wrapper.vm.newReminder.date).toBe(reminderTest.date);
+    expect(wrapper.vm.newReminder.hour).toBe(reminderTest.hour);
   });
 });

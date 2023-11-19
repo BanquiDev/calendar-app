@@ -12,6 +12,7 @@
                 <v-col cols="12">
                   <v-text-field
                     v-model="newReminder.text"
+                    test-id="reminder-text"
                     label="Add Reminder"
                     :rules="[rules.required, rules.maxLength]"
                   ></v-text-field>
@@ -65,6 +66,11 @@
               </v-row>
               <v-row>
                 <v-col cols="6">
+                  <v-btn @click="closeReminderModal" color="red" class="buttons"
+                    >Close <v-icon class="ml-2">mdi-close</v-icon></v-btn
+                  >
+                </v-col>
+                <v-col cols="6">
                   <v-btn
                     @click="saveReminder"
                     ref="save-button"
@@ -72,11 +78,6 @@
                     class="buttons"
                     :loading="createFlag"
                     >Save <v-icon class="ml-2" medium>mdi-check</v-icon></v-btn
-                  >
-                </v-col>
-                <v-col cols="6" sm="6" md="4">
-                  <v-btn @click="closeReminderModal" color="red" class="buttons"
-                    >Close <v-icon class="ml-2">mdi-close</v-icon></v-btn
                   >
                 </v-col>
               </v-row>
@@ -149,7 +150,7 @@ export default {
       }
     },
     'newReminder.date'(newVal, oldVal) {
-      if (oldVal && newVal !== oldVal) {
+      if (this.isEditFlow && oldVal && newVal !== oldVal) {
         this.removeReminder({
           day: oldVal,
           timestamp: this.getReminderToEdit.timestamp
