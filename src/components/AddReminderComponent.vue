@@ -24,7 +24,7 @@
                     v-model="newReminder.date"
                     @focus="showPicker = true"
                     :rules="[rules.required]"
-                    :disabled="getReminderToEdit"
+                    :disabled="isEditFlow"
                   ></v-text-field>
                   <v-dialog v-model="showPicker" v-if="showPicker" width="500">
                     <v-card>
@@ -66,7 +66,7 @@
               </v-row>
               <v-row>
                 <v-col cols="6" sm="6" md="4">
-                  <v-btn @click="saveReminder">Save</v-btn>
+                  <v-btn @click="saveReminder" ref="save-button">Save</v-btn>
                 </v-col>
                 <v-col cols="6" sm="6" md="4">
                   <v-btn @click="closeReminderModal">Close</v-btn>
@@ -137,7 +137,8 @@ export default {
       rules: {
         required: (value) => !!value || 'Field is required',
         maxLength: (value) => value?.length <= 30 || 'Max 30 characters'
-      }
+      },
+      isEditFlow: false
     };
   },
   computed: {
@@ -168,6 +169,7 @@ export default {
           color: color,
           city: city
         };
+        this.isEditFlow = true;
       }
     }
   },
