@@ -24,7 +24,6 @@
                     v-model="newReminder.date"
                     @focus="showPicker = true"
                     :rules="[rules.required]"
-                    :disabled="isEditFlow"
                   ></v-text-field>
                   <v-dialog v-model="showPicker" v-if="showPicker" width="500">
                     <v-card>
@@ -148,10 +147,21 @@ export default {
         };
         this.isEditFlow = true;
       }
+    },
+    'newReminder.date'(newVal, oldVal) {
+      if (oldVal && newVal !== oldVal) {
+        this.removeReminder({
+          day: oldVal,
+          timestamp: this.getReminderToEdit.timestamp
+        });
+      }
     }
   },
   methods: {
-    ...mapMutations({ addReminder: 'ADD_REMINDER' }),
+    ...mapMutations({
+      addReminder: 'ADD_REMINDER',
+      removeReminder: 'REMOVE_REMINDER'
+    }),
     ...mapActions({ getCityCoordenates: 'getCityCoordenates' }),
     closeReminderModal() {
       this.newReminder = {
