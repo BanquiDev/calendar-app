@@ -71,8 +71,8 @@
                     ref="save-button"
                     color="green"
                     class="buttons"
-                    >Save
-                    <v-icon class="ml-2" small>mdi-check-outline</v-icon></v-btn
+                    :loading="createFlag"
+                    >Save <v-icon class="ml-2" medium>mdi-check</v-icon></v-btn
                   >
                 </v-col>
                 <v-col cols="6" sm="6" md="4">
@@ -114,7 +114,8 @@ export default {
         required: (value) => !!value || 'Field is required',
         maxLength: (value) => value?.length <= 30 || 'Max 30 characters'
       },
-      isEditFlow: false
+      isEditFlow: false,
+      createFlag: false
     };
   },
   computed: {
@@ -167,6 +168,7 @@ export default {
         this.$refs.reminderForm.validate();
         return;
       }
+      this.createFlag = true;
       const reminderDate = new Date(this.newReminder.date).setHours(
         parseInt(this.newReminder.hour)
       );
@@ -184,7 +186,7 @@ export default {
       };
 
       this.addReminder(reminderToAdd);
-      this.$emit('update');
+      this.createFlag = false;
       this.newReminder = {
         text: '',
         date: '',
@@ -193,6 +195,7 @@ export default {
         city: '',
         weather: {}
       };
+      this.$emit('update');
     },
     closePicker() {
       this.showPicker = false;

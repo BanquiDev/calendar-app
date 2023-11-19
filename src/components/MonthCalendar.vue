@@ -15,9 +15,10 @@
 
     <ol class="days-grid">
       <CalendarDayItem
-        v-for="day in days"
+        v-for="(day, index) in days"
         :key="day.date"
         :day="day"
+        :index="index"
         :is-today="day.date === today"
         :is-current-month="day.isCurrentMonth"
       />

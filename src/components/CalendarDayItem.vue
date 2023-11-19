@@ -4,7 +4,8 @@
       class="calendar-day"
       :class="{
         'calendar-day--not-current': !isCurrentMonth,
-        'calendar-day--today': isToday
+        'calendar-day--today': isToday,
+        'weekend-day': isWeekEndDay
       }"
     >
       <div class="day-cell">
@@ -56,15 +57,25 @@ export default {
     isToday: {
       type: Boolean,
       default: false
+    },
+    index: {
+      type: Number,
+      required: true
     }
   },
   data() {
     return {
       reminderModalFlag: false,
-      reminderToEdit: {}
+      reminderToEdit: {},
+      isWeekEndDay: false
     };
   },
-
+  created() {
+    const indexPlusOne = this.index + 1;
+    if (indexPlusOne % 7 === 0 || this.index % 7 === 0) {
+      this.isWeekEndDay = true;
+    }
+  },
   computed: {
     ...mapGetters({ dayReminders: 'getReminders' }),
     dayNumber() {
@@ -106,8 +117,8 @@ export default {
   background-color: #fff;
   color: var(--grey-800);
   padding: 5px;
-  border: 1px var(--grey-800) solid;
-  overflow-y: hidden;
+  border: 2px var(--grey-800) solid;
+  /* overflow-y: hidden; */
 }
 
 .calendar-day > span {
@@ -115,7 +126,6 @@ export default {
   justify-content: center;
   align-items: center;
   position: absolute;
-  right: 2px;
   width: var(--day-label-size);
   height: var(--day-label-size);
 }
@@ -148,7 +158,7 @@ export default {
   height: 100px;
   overflow-y: auto;
 }
-::v-btn {
-  min-width: none;
+.weekend-day {
+  background-color: lightblue;
 }
 </style>
